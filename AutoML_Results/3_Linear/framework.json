@@ -1,0 +1,207 @@
+{
+    "uid": "6e884d84-ce15-4cb0-8cd2-11bb82764c4a",
+    "name": "3_Linear",
+    "preprocessing": [
+        {
+            "categorical": [
+                {
+                    "convert_method": "categorical_to_int",
+                    "convert_params": {
+                        "sex": {
+                            "female": 0,
+                            "male": 1
+                        },
+                        "smoker": {
+                            "no": 0,
+                            "yes": 1
+                        },
+                        "region": {
+                            "northeast": 0,
+                            "northwest": 1,
+                            "southeast": 2,
+                            "southwest": 3
+                        }
+                    },
+                    "columns": [
+                        "sex",
+                        "smoker",
+                        "region"
+                    ]
+                }
+            ],
+            "scale": [
+                {
+                    "scale": [
+                        14.29649989799368,
+                        0.4998559792580259,
+                        6.0116908176614965,
+                        1.193118043894512,
+                        0.39798604107291113,
+                        1.1054579744763404
+                    ],
+                    "mean": [
+                        39.368,
+                        0.512,
+                        30.963446666666666,
+                        1.056,
+                        0.19733333333333333,
+                        1.536
+                    ],
+                    "var": [
+                        204.38990933333332,
+                        0.249856,
+                        36.14042648715555,
+                        1.4235306666666665,
+                        0.15839288888888892,
+                        1.2220373333333334
+                    ],
+                    "n_samples_seen": 750,
+                    "n_features_in": 6,
+                    "columns": [
+                        "age",
+                        "sex",
+                        "bmi",
+                        "children",
+                        "smoker",
+                        "region"
+                    ],
+                    "scale_method": "scale_normal"
+                }
+            ],
+            "scale_y": {
+                "scale": [
+                    11719.137995961175
+                ],
+                "mean": [
+                    12880.897257319999
+                ],
+                "var": [
+                    137338195.3683809
+                ],
+                "n_samples_seen": 750,
+                "n_features_in": 1,
+                "columns": [
+                    "target"
+                ],
+                "scale_method": "scale_normal"
+            },
+            "ml_task": "regression",
+            "params": {
+                "columns_preprocessing": {
+                    "age": [
+                        "scale_normal"
+                    ],
+                    "sex": [
+                        "categorical_to_int",
+                        "scale_normal"
+                    ],
+                    "bmi": [
+                        "scale_normal"
+                    ],
+                    "children": [
+                        "scale_normal"
+                    ],
+                    "smoker": [
+                        "categorical_to_int",
+                        "scale_normal"
+                    ],
+                    "region": [
+                        "categorical_to_int",
+                        "scale_normal"
+                    ]
+                },
+                "target_preprocessing": [
+                    "na_exclude",
+                    "scale_normal"
+                ],
+                "ml_task": "regression"
+            }
+        }
+    ],
+    "learners": [
+        {
+            "library_version": "1.9.0",
+            "algorithm_name": "Linear Regression",
+            "algorithm_short_name": "Linear",
+            "uid": "353d749b-de4e-4df3-8356-2ae6b7b9530d",
+            "params": {
+                "model_type": "Linear",
+                "ml_task": "regression",
+                "n_jobs": -1,
+                "seed": 1235,
+                "explain_level": 2
+            },
+            "name": "learner_fold_0"
+        }
+    ],
+    "params": {
+        "additional": {
+            "max_steps": 1,
+            "max_rows_limit": null,
+            "max_cols_limit": null
+        },
+        "preprocessing": {
+            "columns_preprocessing": {
+                "age": [
+                    "scale_normal"
+                ],
+                "sex": [
+                    "categorical_to_int",
+                    "scale_normal"
+                ],
+                "bmi": [
+                    "scale_normal"
+                ],
+                "children": [
+                    "scale_normal"
+                ],
+                "smoker": [
+                    "categorical_to_int",
+                    "scale_normal"
+                ],
+                "region": [
+                    "categorical_to_int",
+                    "scale_normal"
+                ]
+            },
+            "target_preprocessing": [
+                "na_exclude",
+                "scale_normal"
+            ],
+            "ml_task": "regression"
+        },
+        "validation_strategy": {
+            "validation_type": "split",
+            "train_ratio": 0.75,
+            "shuffle": true,
+            "X_path": "AutoML_Results/X.data",
+            "y_path": "AutoML_Results/y.data",
+            "results_path": "AutoML_Results"
+        },
+        "learner": {
+            "model_type": "Linear",
+            "ml_task": "regression",
+            "n_jobs": -1,
+            "seed": 1235,
+            "explain_level": 2
+        },
+        "automl_random_state": 1234,
+        "ml_task": "regression",
+        "explain_level": 2,
+        "name": "3_Linear",
+        "status": "initialized",
+        "final_loss": null,
+        "train_time": null,
+        "data_type": "original",
+        "max_time_for_learner": 360.0
+    },
+    "saved": [
+        "3_Linear/learner_fold_0.linear"
+    ],
+    "predictions_fname": "3_Linear/predictions_validation.csv",
+    "metric_name": "rmse",
+    "final_loss": "6286.192639942853",
+    "train_time": 3.246260643005371,
+    "is_stacked": false,
+    "joblib_version": "1.5.3"
+}

@@ -1,0 +1,8 @@
+[main]
+title = "Insurance Charges Predictor"
+footer = "Generated with MLJAR AutoML"
+favicon_emoji = "📈"
+
+[welcome]
+header = "Insurance Charges Predictor"
+message = "Mercury prediction apps generated from a trained MLJAR AutoML model."

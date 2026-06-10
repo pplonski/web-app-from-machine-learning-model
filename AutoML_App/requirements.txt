@@ -1,0 +1,6 @@
+# Requires Python 3.10+ because Mercury v3 uses Python 3.10 syntax.
+mercury
+mljar-supervised
+matplotlib
+pandas
+numpy

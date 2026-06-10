@@ -1,0 +1,326 @@
+{
+  "schema_version": 1,
+  "bundle_type": "automl_prediction_bundle",
+  "title": "Insurance Charges Predictor",
+  "model_task": "regression",
+  "results_dir_name": "automl",
+  "default_notebook": "predict_single.ipynb",
+  "notebooks": [
+    {
+      "filename": "predict_single.ipynb",
+      "kind": "single_sample",
+      "title": "Single Prediction"
+    },
+    {
+      "filename": "predict_batch.ipynb",
+      "kind": "batch_prediction",
+      "title": "Batch Prediction"
+    }
+  ],
+  "feature_schema": [
+    {
+      "name": "age",
+      "kind": "numeric",
+      "widget": "number",
+      "required": true,
+      "transformations": [
+        "scale"
+      ],
+      "default": 40,
+      "dtype": "int",
+      "min": 18.0,
+      "max": 64.0,
+      "step": 0.46,
+      "distribution": {
+        "bin_edges": [
+          18.0,
+          22.6,
+          27.2,
+          31.799999999999997,
+          36.4,
+          41.0,
+          45.599999999999994,
+          50.199999999999996,
+          54.8,
+          59.4,
+          64.0
+        ],
+        "counts": [
+          163,
+          101,
+          80,
+          95,
+          76,
+          99,
+          109,
+          85,
+          98,
+          94
+        ]
+      }
+    },
+    {
+      "name": "sex",
+      "kind": "categorical",
+      "widget": "select",
+      "required": true,
+      "transformations": [
+        "categorical",
+        "few_categories"
+      ],
+      "default": "male",
+      "dtype": "str",
+      "choices": [
+        "male",
+        "female"
+      ],
+      "distribution": {
+        "labels": [
+          "male",
+          "female"
+        ],
+        "counts": [
+          505,
+          495
+        ]
+      }
+    },
+    {
+      "name": "bmi",
+      "kind": "numeric",
+      "widget": "number",
+      "required": true,
+      "transformations": [
+        "scale"
+      ],
+      "default": 30.59,
+      "dtype": "float",
+      "min": 15.96,
+      "max": 50.38,
+      "step": 0.3442,
+      "distribution": {
+        "bin_edges": [
+          15.96,
+          19.402,
+          22.844,
+          26.286,
+          29.728,
+          33.17,
+          36.612,
+          40.054,
+          43.496,
+          46.938,
+          50.38
+        ],
+        "counts": [
+          17,
+          70,
+          148,
+          207,
+          215,
+          164,
+          109,
+          47,
+          17,
+          6
+        ]
+      }
+    },
+    {
+      "name": "children",
+      "kind": "numeric",
+      "widget": "number",
+      "required": true,
+      "transformations": [
+        "scale"
+      ],
+      "default": 1,
+      "dtype": "int",
+      "min": 0.0,
+      "max": 5.0,
+      "step": 0.05,
+      "distribution": {
+        "bin_edges": [
+          0.0,
+          0.8333333333333334,
+          1.6666666666666667,
+          2.5,
+          3.3333333333333335,
+          4.166666666666667,
+          5.0
+        ],
+        "counts": [
+          436,
+          238,
+          178,
+          119,
+          16,
+          13
+        ]
+      }
+    },
+    {
+      "name": "smoker",
+      "kind": "boolean",
+      "widget": "checkbox",
+      "required": true,
+      "transformations": [
+        "categorical",
+        "few_categories"
+      ],
+      "default": false,
+      "dtype": "bool",
+      "choices": [
+        false,
+        true
+      ],
+      "distribution": {
+        "false": 804,
+        "true": 196
+      }
+    },
+    {
+      "name": "region",
+      "kind": "categorical",
+      "widget": "select",
+      "required": true,
+      "transformations": [
+        "categorical",
+        "few_categories"
+      ],
+      "default": "southeast",
+      "dtype": "str",
+      "choices": [
+        "southeast",
+        "northeast",
+        "southwest",
+        "northwest"
+      ],
+      "distribution": {
+        "labels": [
+          "southeast",
+          "northeast",
+          "southwest",
+          "northwest"
+        ],
+        "counts": [
+          278,
+          247,
+          244,
+          231
+        ]
+      }
+    }
+  ],
+  "class_labels": [],
+  "global_feature_importance": {
+    "available": true,
+    "method": "mean_rank_across_models",
+    "n_models_used": 5,
+    "n_features": 6,
+    "selection_k": 3,
+    "top": [
+      {
+        "feature": "smoker",
+        "mean_rank": 1.0,
+        "models_present": 5
+      },
+      {
+        "feature": "bmi",
+        "mean_rank": 2.2,
+        "models_present": 5
+      },
+      {
+        "feature": "age",
+        "mean_rank": 2.8,
+        "models_present": 5
+      }
+    ],
+    "bottom": [
+      {
+        "feature": "children",
+        "mean_rank": 4.2,
+        "models_present": 5
+      },
+      {
+        "feature": "region",
+        "mean_rank": 5.4,
+        "models_present": 5
+      },
+      {
+        "feature": "sex",
+        "mean_rank": 5.4,
+        "models_present": 5
+      }
+    ]
+  },
+  "leaderboard": [
+    {
+      "name": "1_Baseline",
+      "model_type": "Baseline",
+      "metric_type": "rmse",
+      "metric_value": 12736.255074884273,
+      "train_time": 0.46
+    },
+    {
+      "name": "2_DecisionTree",
+      "model_type": "Decision Tree",
+      "metric_type": "rmse",
+      "metric_value": 5017.671212146108,
+      "train_time": 3.94
+    },
+    {
+      "name": "3_Linear",
+      "model_type": "Linear",
+      "metric_type": "rmse",
+      "metric_value": 6286.192639942853,
+      "train_time": 3.65
+    },
+    {
+      "name": "4_Default_Xgboost",
+      "model_type": "Xgboost",
+      "metric_type": "rmse",
+      "metric_value": 5105.238655996055,
+      "train_time": 3.88
+    },
+    {
+      "name": "5_Default_NeuralNetwork",
+      "model_type": "Neural Network",
+      "metric_type": "rmse",
+      "metric_value": 5304.191717697475,
+      "train_time": 2.84
+    },
+    {
+      "name": "6_Default_RandomForest",
+      "model_type": "Random Forest",
+      "metric_type": "rmse",
+      "metric_value": 4906.421264648455,
+      "train_time": 4.74
+    },
+    {
+      "name": "Ensemble",
+      "model_type": "Ensemble",
+      "metric_type": "rmse",
+      "metric_value": 4852.221625035727,
+      "train_time": 0.16
+    }
+  ],
+  "selected_model": null,
+  "automl_bundle": {
+    "archive_name": "automl.zip",
+    "runtime_root": ".automl_runtime",
+    "extracted_dir": "automl",
+    "selected_models": [
+      "2_DecisionTree",
+      "5_Default_NeuralNetwork",
+      "6_Default_RandomForest",
+      "Ensemble"
+    ]
+  },
+  "supports": {
+    "single_sample": true,
+    "batch_prediction": true,
+    "predict_proba": false
+  },
+  "python_requires": ">=3.10"
+}

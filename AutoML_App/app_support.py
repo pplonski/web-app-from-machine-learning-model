@@ -1,0 +1,324 @@
+import base64
+import io
+import json
+import shutil
+import zipfile
+from functools import lru_cache
+from pathlib import Path
+
+import pandas as pd
+
+from supervised import AutoML
+
+ROOT = Path(__file__).resolve().parent
+MANIFEST_PATH = ROOT / "mljar_app.json"
+
+
+@lru_cache(maxsize=1)
+def load_bundle():
+    with MANIFEST_PATH.open("r", encoding="utf-8") as fin:
+        manifest = json.load(fin)
+    automl_path = ensure_automl_runtime(manifest)
+    automl = AutoML(results_path=str(automl_path))
+    automl._results_path = str(automl_path)
+    return {"manifest": manifest, "automl": automl}
+
+
+def manifest():
+    return load_bundle()["manifest"]
+
+
+def feature_schema():
+    return manifest().get("feature_schema", [])
+
+
+def _get_matplotlib_pyplot():
+    import matplotlib.pyplot as plt
+
+    return plt
+
+
+def _get_numpy():
+    import numpy as np
+
+    return np
+
+
+def ensure_automl_runtime(manifest_payload):
+    bundle = manifest_payload.get("automl_bundle", {})
+    runtime_root = ROOT / bundle.get("runtime_root", ".automl_runtime")
+    extracted_dir = bundle.get("extracted_dir", "automl")
+    runtime_path = runtime_root / extracted_dir
+    params_path = runtime_path / "params.json"
+    if params_path.exists():
+        return runtime_path
+
+    archive_path = ROOT / bundle.get("archive_name", "automl.zip")
+    if runtime_root.exists():
+        shutil.rmtree(runtime_root)
+    runtime_root.mkdir(parents=True, exist_ok=True)
+    with zipfile.ZipFile(archive_path, "r") as zf:
+        zf.extractall(runtime_root)
+    return runtime_path
+
+
+def create_widget(mr, feature):
+    name = feature["name"]
+    key = f"feature-{name}"
+    label = name.replace("_", " ")
+    widget = feature.get("widget")
+    if widget == "select" and feature.get("choices"):
+        choices = [str(choice) for choice in feature.get("choices", [])]
+        value = str(feature.get("default", choices[0] if choices else ""))
+        return mr.Select(label=label, choices=choices, value=value, key=key)
+    if widget == "checkbox":
+        return mr.CheckBox(label=label, value=bool(feature.get("default", False)), key=key)
+    if widget == "number":
+        return mr.NumberInput(
+            label=label,
+            value=feature.get("default", 0.0),
+            min=feature.get("min", 0.0),
+            max=feature.get("max", 1.0),
+            step=feature.get("step", 1.0),
+            key=key,
+        )
+    return mr.TextInput(label=label, value=str(feature.get("default", "")), key=key)
+
+
+def widgets_to_dataframe(widgets):
+    row = {}
+    for feature in feature_schema():
+        name = feature["name"]
+        value = getattr(widgets[name], "value", None)
+        row[name] = _cast_scalar(feature, value)
+    return pd.DataFrame([row], columns=[feature["name"] for feature in feature_schema()])
+
+
+def predict_single(input_df):
+    bundle = load_bundle()
+    predictions = bundle["automl"].predict_all(input_df)
+    task = bundle["manifest"]["model_task"]
+    result = {
+        "task": task,
+        "input": input_df.iloc[0].to_dict(),
+        "table": predictions,
+        "prediction": None,
+        "probabilities": [],
+    }
+    if task == "regression":
+        result["prediction"] = float(predictions["prediction"].iloc[0])
+    else:
+        result["prediction"] = predictions["label"].iloc[0]
+        for column in predictions.columns:
+            if column == "label":
+                continue
+            result["probabilities"].append(
+                {"label": column.replace("prediction_", ""), "value": float(predictions[column].iloc[0])}
+            )
+    return result
+
+
+def batch_predict(upload_widget):
+    if not getattr(upload_widget, "value", b""):
+        return None, "Upload a CSV file to score a batch."
+    try:
+        batch_df = pd.read_csv(io.BytesIO(upload_widget.value))
+    except Exception as exc:
+        return None, f"Failed to read CSV: {exc}"
+
+    expected = [feature["name"] for feature in feature_schema()]
+    missing = [column for column in expected if column not in batch_df.columns]
+    if missing:
+        return None, "Missing required columns: " + ", ".join(missing)
+
+    ordered = batch_df[expected].copy()
+    for feature in feature_schema():
+        ordered[feature["name"]] = ordered[feature["name"]].map(
+            lambda value, spec=feature: _cast_scalar(spec, value)
+        )
+    predictions = load_bundle()["automl"].predict_all(ordered)
+    scored = pd.concat([batch_df.reset_index(drop=True), predictions.reset_index(drop=True)], axis=1)
+    return scored, None
+
+
+def csv_download_payload(df):
+    csv_data = df.to_csv(index=False)
+    return base64.b64encode(csv_data.encode("utf-8")).decode("ascii")
+
+
+def render_batch_dashboard(mr, scored_df):
+    task = manifest()["model_task"]
+    indicators = [mr.Indicator(value=str(len(scored_df)), label="Scored rows")]
+    if task == "regression":
+        prediction_series = pd.to_numeric(scored_df["prediction"], errors="coerce").dropna()
+        if not prediction_series.empty:
+            indicators.append(
+                mr.Indicator(
+                    value=f"{float(prediction_series.mean()):.6g}",
+                    label="Mean prediction",
+                )
+            )
+            indicators.append(
+                mr.Indicator(
+                    value=f"{float(prediction_series.median()):.6g}",
+                    label="Median prediction",
+                )
+            )
+    else:
+        label_counts = scored_df["label"].astype(str).value_counts()
+        if not label_counts.empty:
+            top_label = str(label_counts.index[0])
+            top_share = float(label_counts.iloc[0]) / float(len(scored_df))
+            indicators.append(
+                mr.Indicator(
+                    value=top_label,
+                    label="Most common label",
+                )
+            )
+            indicators.append(
+                mr.Indicator(
+                    value=f"{top_share:.1%}",
+                    label="Top label share",
+                )
+            )
+    _ = mr.Indicator(indicators, display_now=True)
+
+
+def render_single_dashboard(mr, result):
+    if result["task"] == "regression":
+        _ = mr.Indicator(
+            value=f"{result['prediction']:.6g}",
+            label="Predicted value",
+            display_now=True,
+        )
+    else:
+        indicators = [
+            mr.Indicator(
+                value=str(result["prediction"]),
+                label="Predicted label",
+            )
+        ]
+        if result["probabilities"]:
+            top = max(result["probabilities"], key=lambda item: item["value"])
+            indicators.append(
+                mr.Indicator(
+                    value=f"{top['value']:.3f}",
+                    label="Top probability",
+                )
+            )
+        _ = mr.Indicator(indicators, display_now=True)
+
+
+def plot_feature_importance():
+    gfi = manifest().get("global_feature_importance", {})
+    if not gfi.get("available"):
+        return
+    plt = _get_matplotlib_pyplot()
+    top = gfi.get("top", [])[:8]
+    if not top:
+        return
+    labels = [item["feature"] for item in top]
+    values = [item["mean_rank"] if "mean_rank" in item else item["importance"] for item in top]
+    fig, ax = plt.subplots(figsize=(8, max(3, 0.6 * len(labels))))
+    ax.barh(labels[::-1], values[::-1], color="#faa307")
+    ax.set_title("Global feature importance")
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_feature_context(input_df):
+    schema = feature_schema()
+    gfi = manifest().get("global_feature_importance", {})
+    priority = [item["feature"] for item in gfi.get("top", [])]
+    selected = []
+    for name in priority:
+        feature = next((item for item in schema if item["name"] == name), None)
+        if feature is not None and "distribution" in feature:
+            selected.append(feature)
+        if len(selected) == 3:
+            break
+    if not selected:
+        selected = [feature for feature in schema if "distribution" in feature][:3]
+    for feature in selected:
+        if feature["kind"] == "numeric":
+            _plot_numeric_context(feature, input_df.iloc[0][feature["name"]])
+        elif feature["kind"] in {"categorical", "boolean"}:
+            _plot_categorical_context(feature, input_df.iloc[0][feature["name"]])
+
+
+def plot_batch_summary(scored_df):
+    task = manifest()["model_task"]
+    plt = _get_matplotlib_pyplot()
+    fig, ax = plt.subplots(figsize=(8, 4))
+    if task == "regression":
+        scored_df["prediction"].plot(kind="hist", bins=12, color="#577590", ax=ax)
+        ax.set_title("Prediction distribution")
+        ax.set_xlabel("Prediction")
+    else:
+        scored_df["label"].astype(str).value_counts().plot(kind="bar", color="#577590", ax=ax)
+        ax.set_title("Predicted label counts")
+        ax.set_xlabel("Label")
+    plt.tight_layout()
+    plt.show()
+
+
+def _plot_numeric_context(feature, sample_value):
+    distribution = feature.get("distribution", {})
+    edges = distribution.get("bin_edges")
+    counts = distribution.get("counts")
+    if not edges or not counts:
+        return
+    plt = _get_matplotlib_pyplot()
+    centers = [(edges[i] + edges[i + 1]) / 2.0 for i in range(len(edges) - 1)]
+    widths = [edges[i + 1] - edges[i] for i in range(len(edges) - 1)]
+    fig, ax = plt.subplots(figsize=(8, 3))
+    ax.bar(centers, counts, width=widths, color="#8ecae6", align="center", edgecolor="white")
+    try:
+        sample_numeric = float(sample_value)
+        ax.axvline(sample_numeric, color="#d00000", linestyle="--", linewidth=2)
+    except Exception:
+        pass
+    ax.set_title(f"{feature['name']} in training data")
+    plt.tight_layout()
+    plt.show()
+
+
+def _plot_categorical_context(feature, sample_value):
+    distribution = feature.get("distribution", {})
+    labels = [str(label) for label in distribution.get("labels", [])]
+    counts = distribution.get("counts", [])
+    if not labels or not counts:
+        return
+    plt = _get_matplotlib_pyplot()
+    colors = ["#023047" if str(sample_value) == label else "#8ecae6" for label in labels]
+    fig, ax = plt.subplots(figsize=(8, 3))
+    ax.bar(labels, counts, color=colors)
+    ax.set_title(f"{feature['name']} in training data")
+    ax.tick_params(axis="x", rotation=30)
+    plt.tight_layout()
+    plt.show()
+
+
+def _cast_scalar(feature, value):
+    if value is None:
+        return None
+    if feature["kind"] == "numeric":
+        if value == "":
+            return None
+        if feature.get("dtype") == "int":
+            return int(float(value))
+        return float(value)
+    if feature["kind"] == "boolean":
+        return _normalize_bool(value)
+    if feature["kind"] == "datetime":
+        if value == "":
+            return None
+        return pd.to_datetime(value)
+    return str(value)
+
+
+def _normalize_bool(value):
+    if isinstance(value, bool):
+        return value
+    text = str(value).strip().lower()
+    return text in {"true", "1", "yes", "y"}

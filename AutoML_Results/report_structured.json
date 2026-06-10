@@ -1,0 +1,812 @@
+{
+    "created_at_utc": "2026-06-10T13:35:43.068925+00:00",
+    "mljar_supervised_version": "1.3.0",
+    "results_path": "AutoML_Results",
+    "run_summary": {
+        "mode": "Explain",
+        "ml_task": "regression",
+        "eval_metric": "rmse",
+        "n_rows": 1000,
+        "n_features": 6,
+        "n_classes": 999,
+        "n_models": 7,
+        "best_model_name": "Ensemble",
+        "fit_level": "finished",
+        "total_time_limit": 3600,
+        "model_time_limit": null,
+        "validation_strategy": {
+            "validation_type": "split",
+            "train_ratio": 0.75,
+            "shuffle": true,
+            "X_path": "AutoML_Results/X.data",
+            "y_path": "AutoML_Results/y.data",
+            "results_path": "AutoML_Results"
+        },
+        "train_ensemble": true,
+        "stack_models": false,
+        "fairness_metric": null,
+        "fairness_threshold": null
+    },
+    "leaderboard": [
+        {
+            "name": "1_Baseline",
+            "model_type": "Baseline",
+            "metric_type": "rmse",
+            "metric_value": 12736.255074884273,
+            "train_time": 0.46
+        },
+        {
+            "name": "2_DecisionTree",
+            "model_type": "Decision Tree",
+            "metric_type": "rmse",
+            "metric_value": 5017.671212146108,
+            "train_time": 3.94
+        },
+        {
+            "name": "3_Linear",
+            "model_type": "Linear",
+            "metric_type": "rmse",
+            "metric_value": 6286.192639942853,
+            "train_time": 3.65
+        },
+        {
+            "name": "4_Default_Xgboost",
+            "model_type": "Xgboost",
+            "metric_type": "rmse",
+            "metric_value": 5105.238655996055,
+            "train_time": 3.88
+        },
+        {
+            "name": "5_Default_NeuralNetwork",
+            "model_type": "Neural Network",
+            "metric_type": "rmse",
+            "metric_value": 5304.191717697475,
+            "train_time": 2.84
+        },
+        {
+            "name": "6_Default_RandomForest",
+            "model_type": "Random Forest",
+            "metric_type": "rmse",
+            "metric_value": 4906.421264648455,
+            "train_time": 4.74
+        },
+        {
+            "name": "Ensemble",
+            "model_type": "Ensemble",
+            "metric_type": "rmse",
+            "metric_value": 4852.221625035727,
+            "train_time": 0.16
+        }
+    ],
+    "global_feature_importance": {
+        "available": true,
+        "method": "mean_rank_across_models",
+        "n_models_used": 5,
+        "n_features": 6,
+        "selection_k": 3,
+        "top": [
+            {
+                "feature": "smoker",
+                "mean_rank": 1.0,
+                "models_present": 5
+            },
+            {
+                "feature": "bmi",
+                "mean_rank": 2.2,
+                "models_present": 5
+            },
+            {
+                "feature": "age",
+                "mean_rank": 2.8,
+                "models_present": 5
+            }
+        ],
+        "bottom": [
+            {
+                "feature": "children",
+                "mean_rank": 4.2,
+                "models_present": 5
+            },
+            {
+                "feature": "region",
+                "mean_rank": 5.4,
+                "models_present": 5
+            },
+            {
+                "feature": "sex",
+                "mean_rank": 5.4,
+                "models_present": 5
+            }
+        ]
+    },
+    "best_model": {
+        "name": "Ensemble",
+        "model_type": "Ensemble",
+        "metric_type": "rmse",
+        "metric_value": 4852.221625035727,
+        "train_time": 0.1601426601409912,
+        "is_valid": true,
+        "is_stacked": false,
+        "involved_models": [
+            "Ensemble",
+            "2_DecisionTree",
+            "5_Default_NeuralNetwork",
+            "6_Default_RandomForest"
+        ],
+        "artifacts": {
+            "model_dir": "AutoML_Results/Ensemble",
+            "readme_md": "AutoML_Results/Ensemble/README.md",
+            "readme_html": "AutoML_Results/Ensemble/README.html"
+        },
+        "hyperparameters": {
+            "model_type": "Ensemble"
+        },
+        "metrics": {
+            "max_metrics": {
+                "index": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ],
+                "columns": [
+                    "Metric",
+                    "Score"
+                ],
+                "data": [
+                    [
+                        "MAE",
+                        2686.2156190517076
+                    ],
+                    [
+                        "MSE",
+                        23544054.69846435
+                    ],
+                    [
+                        "RMSE",
+                        4852.221625035727
+                    ],
+                    [
+                        "R2",
+                        0.8543108070897346
+                    ],
+                    [
+                        "MAPE",
+                        0.2846612936449121
+                    ]
+                ]
+            }
+        },
+        "feature_importance": {
+            "available": false,
+            "reason": "no_importance_files"
+        }
+    },
+    "fairness_summary": null,
+    "models": [
+        {
+            "name": "1_Baseline",
+            "model_type": "Baseline",
+            "metric_type": "rmse",
+            "metric_value": 12736.255074884273,
+            "train_time": 0.46115565299987793,
+            "is_valid": true,
+            "is_stacked": false,
+            "involved_models": [
+                "1_Baseline"
+            ],
+            "artifacts": {
+                "model_dir": "AutoML_Results/1_Baseline",
+                "readme_md": "AutoML_Results/1_Baseline/README.md",
+                "readme_html": "AutoML_Results/1_Baseline/README.html"
+            },
+            "hyperparameters": {
+                "model_type": "Baseline",
+                "ml_task": "regression",
+                "n_jobs": -1,
+                "seed": 1235,
+                "explain_level": 2
+            },
+            "metrics": {
+                "max_metrics": {
+                    "index": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "columns": [
+                        "Metric",
+                        "Score"
+                    ],
+                    "data": [
+                        [
+                            "MAE",
+                            9564.392218284958
+                        ],
+                        [
+                            "MSE",
+                            162212193.3325154
+                        ],
+                        [
+                            "RMSE",
+                            12736.255074884273
+                        ],
+                        [
+                            "R2",
+                            -0.003759285708740956
+                        ],
+                        [
+                            "MAPE",
+                            1.3898428064558113
+                        ]
+                    ]
+                }
+            },
+            "feature_importance": {
+                "available": false,
+                "reason": "no_importance_files"
+            }
+        },
+        {
+            "name": "2_DecisionTree",
+            "model_type": "Decision Tree",
+            "metric_type": "rmse",
+            "metric_value": 5017.671212146108,
+            "train_time": 3.9366347789764404,
+            "is_valid": true,
+            "is_stacked": false,
+            "involved_models": [
+                "2_DecisionTree"
+            ],
+            "artifacts": {
+                "model_dir": "AutoML_Results/2_DecisionTree",
+                "readme_md": "AutoML_Results/2_DecisionTree/README.md",
+                "readme_html": "AutoML_Results/2_DecisionTree/README.html"
+            },
+            "hyperparameters": {
+                "model_type": "Decision Tree",
+                "ml_task": "regression",
+                "n_jobs": -1,
+                "seed": 1235,
+                "criterion": "squared_error",
+                "max_depth": 3,
+                "explain_level": 2
+            },
+            "metrics": {
+                "max_metrics": {
+                    "index": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "columns": [
+                        "Metric",
+                        "Score"
+                    ],
+                    "data": [
+                        [
+                            "MAE",
+                            2897.2367276908594
+                        ],
+                        [
+                            "MSE",
+                            25177024.39319979
+                        ],
+                        [
+                            "RMSE",
+                            5017.671212146108
+                        ],
+                        [
+                            "R2",
+                            0.8442060889381731
+                        ],
+                        [
+                            "MAPE",
+                            0.299330297235357
+                        ]
+                    ]
+                }
+            },
+            "feature_importance": {
+                "available": true,
+                "n_features": 6,
+                "selection_k": 3,
+                "top": [
+                    {
+                        "feature": "smoker",
+                        "importance": 219159417.46345377
+                    },
+                    {
+                        "feature": "bmi",
+                        "importance": 44493949.477665976
+                    },
+                    {
+                        "feature": "age",
+                        "importance": 26688961.84602413
+                    }
+                ],
+                "worst": [
+                    {
+                        "feature": "sex",
+                        "importance": 0.0
+                    },
+                    {
+                        "feature": "children",
+                        "importance": 0.0
+                    },
+                    {
+                        "feature": "region",
+                        "importance": 0.0
+                    }
+                ]
+            }
+        },
+        {
+            "name": "3_Linear",
+            "model_type": "Linear",
+            "metric_type": "rmse",
+            "metric_value": 6286.192639942853,
+            "train_time": 3.6506192684173584,
+            "is_valid": true,
+            "is_stacked": false,
+            "involved_models": [
+                "3_Linear"
+            ],
+            "artifacts": {
+                "model_dir": "AutoML_Results/3_Linear",
+                "readme_md": "AutoML_Results/3_Linear/README.md",
+                "readme_html": "AutoML_Results/3_Linear/README.html"
+            },
+            "hyperparameters": {
+                "model_type": "Linear",
+                "ml_task": "regression",
+                "n_jobs": -1,
+                "seed": 1235,
+                "explain_level": 2
+            },
+            "metrics": {
+                "max_metrics": {
+                    "index": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "columns": [
+                        "Metric",
+                        "Score"
+                    ],
+                    "data": [
+                        [
+                            "MAE",
+                            4298.605312207778
+                        ],
+                        [
+                            "MSE",
+                            39516217.90647169
+                        ],
+                        [
+                            "RMSE",
+                            6286.192639942853
+                        ],
+                        [
+                            "R2",
+                            0.755476022826453
+                        ],
+                        [
+                            "MAPE",
+                            0.38894047934907416
+                        ]
+                    ]
+                }
+            },
+            "feature_importance": {
+                "available": true,
+                "n_features": 6,
+                "selection_k": 3,
+                "top": [
+                    {
+                        "feature": "smoker",
+                        "importance": 1.3331043585187203
+                    },
+                    {
+                        "feature": "age",
+                        "importance": 0.1868408758604453
+                    },
+                    {
+                        "feature": "bmi",
+                        "importance": 0.0603055315813052
+                    }
+                ],
+                "worst": [
+                    {
+                        "feature": "children",
+                        "importance": 0.0043172811716162
+                    },
+                    {
+                        "feature": "region",
+                        "importance": 0.0038707982570016
+                    },
+                    {
+                        "feature": "sex",
+                        "importance": -2.5248776047370747e-05
+                    }
+                ]
+            }
+        },
+        {
+            "name": "4_Default_Xgboost",
+            "model_type": "Xgboost",
+            "metric_type": "rmse",
+            "metric_value": 5105.238655996055,
+            "train_time": 3.8818395137786865,
+            "is_valid": true,
+            "is_stacked": false,
+            "involved_models": [
+                "4_Default_Xgboost"
+            ],
+            "artifacts": {
+                "model_dir": "AutoML_Results/4_Default_Xgboost",
+                "readme_md": "AutoML_Results/4_Default_Xgboost/README.md",
+                "readme_html": "AutoML_Results/4_Default_Xgboost/README.html"
+            },
+            "hyperparameters": {
+                "model_type": "Xgboost",
+                "ml_task": "regression",
+                "n_jobs": -1,
+                "objective": "reg:squarederror",
+                "eta": 0.075,
+                "max_depth": 6,
+                "min_child_weight": 1,
+                "subsample": 1.0,
+                "colsample_bytree": 1.0,
+                "seed": 4,
+                "eval_metric": "rmse",
+                "explain_level": 2
+            },
+            "metrics": {
+                "max_metrics": {
+                    "index": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "columns": [
+                        "Metric",
+                        "Score"
+                    ],
+                    "data": [
+                        [
+                            "MAE",
+                            2806.537923551625
+                        ],
+                        [
+                            "MSE",
+                            26063461.734676406
+                        ],
+                        [
+                            "RMSE",
+                            5105.238655996055
+                        ],
+                        [
+                            "R2",
+                            0.8387208680406157
+                        ],
+                        [
+                            "MAPE",
+                            0.27414828101743477
+                        ]
+                    ]
+                }
+            },
+            "feature_importance": {
+                "available": true,
+                "n_features": 6,
+                "selection_k": 3,
+                "top": [
+                    {
+                        "feature": "smoker",
+                        "importance": 1.5210335857616533
+                    },
+                    {
+                        "feature": "bmi",
+                        "importance": 0.3091806702345352
+                    },
+                    {
+                        "feature": "age",
+                        "importance": 0.1864167993067501
+                    }
+                ],
+                "worst": [
+                    {
+                        "feature": "children",
+                        "importance": 0.0040620971051522
+                    },
+                    {
+                        "feature": "sex",
+                        "importance": 0.0014960910777964
+                    },
+                    {
+                        "feature": "region",
+                        "importance": 0.0003249727883191
+                    }
+                ]
+            }
+        },
+        {
+            "name": "5_Default_NeuralNetwork",
+            "model_type": "Neural Network",
+            "metric_type": "rmse",
+            "metric_value": 5304.191717697475,
+            "train_time": 2.836699962615967,
+            "is_valid": true,
+            "is_stacked": false,
+            "involved_models": [
+                "5_Default_NeuralNetwork"
+            ],
+            "artifacts": {
+                "model_dir": "AutoML_Results/5_Default_NeuralNetwork",
+                "readme_md": "AutoML_Results/5_Default_NeuralNetwork/README.md",
+                "readme_html": "AutoML_Results/5_Default_NeuralNetwork/README.html"
+            },
+            "hyperparameters": {
+                "model_type": "Neural Network",
+                "ml_task": "regression",
+                "n_jobs": -1,
+                "dense_1_size": 32,
+                "dense_2_size": 16,
+                "learning_rate": 0.05,
+                "seed": 5,
+                "explain_level": 2
+            },
+            "metrics": {
+                "max_metrics": {
+                    "index": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "columns": [
+                        "Metric",
+                        "Score"
+                    ],
+                    "data": [
+                        [
+                            "MAE",
+                            3405.016363157029
+                        ],
+                        [
+                            "MSE",
+                            28134449.778090484
+                        ],
+                        [
+                            "RMSE",
+                            5304.191717697475
+                        ],
+                        [
+                            "R2",
+                            0.8259057187200748
+                        ],
+                        [
+                            "MAPE",
+                            0.374244708691961
+                        ]
+                    ]
+                }
+            },
+            "feature_importance": {
+                "available": true,
+                "n_features": 6,
+                "selection_k": 3,
+                "top": [
+                    {
+                        "feature": "smoker",
+                        "importance": 1.5855606520329686
+                    },
+                    {
+                        "feature": "bmi",
+                        "importance": 0.2790488260664617
+                    },
+                    {
+                        "feature": "age",
+                        "importance": 0.1937038618192451
+                    }
+                ],
+                "worst": [
+                    {
+                        "feature": "children",
+                        "importance": 0.0006954830600671
+                    },
+                    {
+                        "feature": "sex",
+                        "importance": -0.0022309269876818
+                    },
+                    {
+                        "feature": "region",
+                        "importance": -0.0038065279946003
+                    }
+                ]
+            }
+        },
+        {
+            "name": "6_Default_RandomForest",
+            "model_type": "Random Forest",
+            "metric_type": "rmse",
+            "metric_value": 4906.421264648455,
+            "train_time": 4.743300914764404,
+            "is_valid": true,
+            "is_stacked": false,
+            "involved_models": [
+                "6_Default_RandomForest"
+            ],
+            "artifacts": {
+                "model_dir": "AutoML_Results/6_Default_RandomForest",
+                "readme_md": "AutoML_Results/6_Default_RandomForest/README.md",
+                "readme_html": "AutoML_Results/6_Default_RandomForest/README.html"
+            },
+            "hyperparameters": {
+                "model_type": "Random Forest",
+                "ml_task": "regression",
+                "n_jobs": -1,
+                "criterion": "squared_error",
+                "max_features": 0.9,
+                "min_samples_split": 30,
+                "max_depth": 4,
+                "seed": 6,
+                "eval_metric_name": "rmse",
+                "explain_level": 2
+            },
+            "metrics": {
+                "max_metrics": {
+                    "index": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "columns": [
+                        "Metric",
+                        "Score"
+                    ],
+                    "data": [
+                        [
+                            "MAE",
+                            2674.4158719301204
+                        ],
+                        [
+                            "MSE",
+                            24072969.626194544
+                        ],
+                        [
+                            "RMSE",
+                            4906.421264648455
+                        ],
+                        [
+                            "R2",
+                            0.8510379133623756
+                        ],
+                        [
+                            "MAPE",
+                            0.26339585704367796
+                        ]
+                    ]
+                }
+            },
+            "feature_importance": {
+                "available": true,
+                "n_features": 6,
+                "selection_k": 3,
+                "top": [
+                    {
+                        "feature": "smoker",
+                        "importance": 1.5676943314634244
+                    },
+                    {
+                        "feature": "bmi",
+                        "importance": 0.2964741693704079
+                    },
+                    {
+                        "feature": "age",
+                        "importance": 0.1890267787981444
+                    }
+                ],
+                "worst": [
+                    {
+                        "feature": "children",
+                        "importance": 0.0028298254519856
+                    },
+                    {
+                        "feature": "region",
+                        "importance": -0.0001770851767033
+                    },
+                    {
+                        "feature": "sex",
+                        "importance": -0.0002733067421526
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Ensemble",
+            "model_type": "Ensemble",
+            "metric_type": "rmse",
+            "metric_value": 4852.221625035727,
+            "train_time": 0.1601426601409912,
+            "is_valid": true,
+            "is_stacked": false,
+            "involved_models": [
+                "Ensemble",
+                "2_DecisionTree",
+                "5_Default_NeuralNetwork",
+                "6_Default_RandomForest"
+            ],
+            "artifacts": {
+                "model_dir": "AutoML_Results/Ensemble",
+                "readme_md": "AutoML_Results/Ensemble/README.md",
+                "readme_html": "AutoML_Results/Ensemble/README.html"
+            },
+            "hyperparameters": {
+                "model_type": "Ensemble"
+            },
+            "metrics": {
+                "max_metrics": {
+                    "index": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "columns": [
+                        "Metric",
+                        "Score"
+                    ],
+                    "data": [
+                        [
+                            "MAE",
+                            2686.2156190517076
+                        ],
+                        [
+                            "MSE",
+                            23544054.69846435
+                        ],
+                        [
+                            "RMSE",
+                            4852.221625035727
+                        ],
+                        [
+                            "R2",
+                            0.8543108070897346
+                        ],
+                        [
+                            "MAPE",
+                            0.2846612936449121
+                        ]
+                    ]
+                }
+            },
+            "feature_importance": {
+                "available": false,
+                "reason": "no_importance_files"
+            }
+        }
+    ],
+    "artifacts": {
+        "leaderboard_csv": "AutoML_Results/leaderboard.csv",
+        "main_readme_md": "AutoML_Results/README.md",
+        "main_readme_html": "AutoML_Results/README.html",
+        "report_structured_json": "AutoML_Results/report_structured.json",
+        "errors_md": "AutoML_Results/errors.md"
+    }
+}

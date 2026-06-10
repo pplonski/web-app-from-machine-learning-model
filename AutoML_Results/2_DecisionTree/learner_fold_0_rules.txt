@@ -1,0 +1,16 @@
+if (smoker <= 0.5) and (age <= 45.5) and (age > 23.5) then response: 6660.837 | based on 248 samples
+
+if (smoker <= 0.5) and (age > 45.5) and (age > 51.5) then response: 13690.726 | based on 160 samples
+
+if (smoker <= 0.5) and (age <= 45.5) and (age <= 23.5) then response: 2876.409 | based on 113 samples
+
+if (smoker <= 0.5) and (age > 45.5) and (age <= 51.5) then response: 10539.83 | based on 81 samples
+
+if (smoker > 0.5) and (bmi > 30.06) and (age > 27.5) then response: 43387.113 | based on 54 samples
+
+if (smoker > 0.5) and (bmi <= 30.06) and (age <= 41.0) then response: 18067.778 | based on 44 samples
+
+if (smoker > 0.5) and (bmi <= 30.06) and (age > 41.0) then response: 25907.344 | based on 30 samples
+
+if (smoker > 0.5) and (bmi > 30.06) and (age <= 27.5) then response: 36220.105 | based on 20 samples
+
