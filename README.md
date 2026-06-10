@@ -1,9 +1,29 @@
 # Create a Web App for Machine Learning model
 
-Train an MLJAR AutoML regression model on the insurance dataset and generate a Mercury web app for predictions.
+[MLJAR AutoML](https://github.com/mljar/mljar-supervised) can automaticall train a Machine Learning pipeline for you and create a **Web App** so you can easily share your models with non-technical users.
+
+## What is good in it?
+
+- AutoML model for predicting medical insurance charges based on demographic data (`age`, `sex`, `bmi`, `children`, `smoker`, `region`).
+- Web App created automatically with `automl.app()`
 
 
 
+![](https://raw.githubusercontent.com/pplonski/web-app-from-machine-learning-model/refs/heads/main/media/mercury-apps.png)
+
+![](https://raw.githubusercontent.com/pplonski/web-app-from-machine-learning-model/refs/heads/main/media/predict-single-sample.png)
+
+![](https://raw.githubusercontent.com/pplonski/web-app-from-machine-learning-model/refs/heads/main/media/batch-prediction.png)
+
+Main columns:
+
+- `age` - age of the person
+- `sex` - gender
+- `bmi` - body mass index
+- `children` - number of children/dependents
+- `smoker` - smoking status
+- `region` - residential region
+- `charges` - medical insurance charges
 
 ```
 AutoML directory: AutoML_Results
