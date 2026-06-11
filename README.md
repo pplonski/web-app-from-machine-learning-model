@@ -9,13 +9,13 @@ There are many files and directories in this repo, but the main script is `train
 ## What will you learn in this tutorial
 
 1. We will train Machine Learning model to predict patient hospitalization charges. Training is done with Automated Machine Learning python pacakge `mljar-supervised`.
-2. We will generate Web App to interact with ML model through GUI.
+2. We will generate Web App to interact with ML model through GUI, we will use `mercury` framework.
 3. We will deploy the Web App to the internet.
 
 
 ## Data
 
-The data files are in `data` directory so you can recreate the app. It is a patient hospitalization charges data set. The data is manually splited into `train.csv` and `test.csv`. The full dataset can be found in [pplonski/datasets-for-start](https://github.com/pplonski/datasets-for-start/tree/master/insurance). 
+The data files are in `data` directory. It is a patient hospitalization charges dataset. The data is manually splited into `train.csv` and `test.csv`. The full dataset can be found in [pplonski/datasets-for-start](https://github.com/pplonski/datasets-for-start/tree/master/insurance). 
 
 Columns in dataset:
 
@@ -117,3 +117,11 @@ automl.publish_app()
 
 It will automatically upload your files to [platform.mljar.com](https://platform.mljar.com) and create an URL for your application.
 
+## Links
+
+- Automated Machine learning Python package: MLJAR AutoML [github.com/mljar/mljar-supervised](https://github.com/mljar/mljar-supervised)
+- Web App framework: Mercury  [github.com/mljar/mercury](https://github.com/mljar/mercury)
+- MLJAR Platform: cloud servers where you can deploy Mercury web apps [platform.mljar.com](https://platform.mljar.com)
+- Article: [Learn more about other ways to make predictions with Machine Learning model](https://mljar.com/blog/make-predictions-with-machine-learning-model/)
+
+Love you!
