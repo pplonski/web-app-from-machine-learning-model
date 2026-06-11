@@ -4,7 +4,7 @@ This is code repository for tutorial how to create a **Web App** for Machine Lea
 
 We will train and deploy Web App for predicting patient hospitalization charges based on demographic and health risk metrics.
 
-There are many files and directories in this repo, but the main script is `train_automl.py` - it is doing all the work.
+There are many files and directories in this repo, but the main script is `train_automl.py` - it is doing all the work. It has 26 lines of code, most are empty lines and comments :)
 
 ## What will you learn in this tutorial
 
