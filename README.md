@@ -6,6 +6,8 @@ We will train and deploy Web App for predicting patient hospitalization charges 
 
 There are many files and directories in this repo, but the main script is `train_automl.py` - it is doing all the work. It has 26 lines of code, most are empty lines and comments :)
 
+Full article: [How to create a Web App for Machine Learning model](https://mljar.com/blog/web-app-machine-learning/).
+
 ## What will you learn in this tutorial
 
 1. We will train Machine Learning model to predict patient hospitalization charges. Training is done with Automated Machine Learning python pacakge `mljar-supervised`.
