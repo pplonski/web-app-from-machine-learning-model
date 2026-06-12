@@ -50,20 +50,24 @@ Training output:
 AutoML directory: AutoML_Results
 The task is regression with evaluation metric rmse
 AutoML will use algorithms: ['Baseline', 'Linear', 'Decision Tree', 'Random Forest', 'Xgboost', 'Neural Network']
+AutoML is generating and selecting models automatically. Review outputs before important use.
 AutoML will ensemble available models
 AutoML steps: ['simple_algorithms', 'default_algorithms', 'ensemble']
 * Step simple_algorithms will try to check up to 3 models
-1_Baseline rmse 12736.255075 trained in 0.25 seconds
-2_DecisionTree rmse 5017.671212 trained in 3.54 seconds
-3_Linear rmse 6286.19264 trained in 3.25 seconds
+1_Baseline rmse 12736.255075 trained in 0.58 seconds
+2_DecisionTree rmse 5017.671212 trained in 4.64 seconds
+3_Linear rmse 6286.19264 trained in 3.71 seconds
 * Step default_algorithms will try to check up to 3 models
-4_Default_Xgboost rmse 5105.238656 trained in 3.54 seconds
-5_Default_NeuralNetwork rmse 5304.191718 trained in 2.51 seconds
-6_Default_RandomForest rmse 4906.421265 trained in 4.31 seconds
+4_Default_Xgboost rmse 5105.238656 trained in 25.67 seconds
+5_Default_NeuralNetwork rmse 5304.191718 trained in 3.75 seconds
+6_Default_RandomForest rmse 4906.421265 trained in 5.44 seconds
 * Step ensemble will try to check up to 1 model
-Ensemble rmse 4852.221625 trained in 0.16 seconds
-AutoML fit time: 22.28 seconds
+Ensemble rmse 4852.221625 trained in 0.18 seconds
+AutoML fit time: 50.73 seconds
 AutoML best model: Ensemble
+App directory: /home/piotr/sandbox/web-app-from-machine-learning-model/AutoML_App
+Enter app directory: cd /home/piotr/sandbox/web-app-from-machine-learning-model/AutoML_App
+Start Mercury: mercury --working-dir=/home/piotr/sandbox/web-app-from-machine-learning-model/AutoML_App
 ```
 
 ## Web App

@@ -21,49 +21,49 @@
                 "model_name": "prepare_data",
                 "model_type": "prepare_data",
                 "fit_level": "prepare_data",
-                "train_time": 0.015696048736572266
+                "train_time": 0.019953012466430664
             },
             {
                 "model_name": "1_Baseline",
                 "model_type": "Baseline",
                 "fit_level": "simple_algorithms",
-                "train_time": 0.24785470962524414
+                "train_time": 0.5847554206848145
             },
             {
                 "model_name": "2_DecisionTree",
                 "model_type": "Decision Tree",
                 "fit_level": "simple_algorithms",
-                "train_time": 3.5424275398254395
+                "train_time": 4.635842800140381
             },
             {
                 "model_name": "3_Linear",
                 "model_type": "Linear",
                 "fit_level": "simple_algorithms",
-                "train_time": 3.246260643005371
+                "train_time": 3.709662914276123
             },
             {
                 "model_name": "4_Default_Xgboost",
                 "model_type": "Xgboost",
                 "fit_level": "default_algorithms",
-                "train_time": 3.542229413986206
+                "train_time": 25.665027618408203
             },
             {
                 "model_name": "5_Default_NeuralNetwork",
                 "model_type": "Neural Network",
                 "fit_level": "default_algorithms",
-                "train_time": 2.5059995651245117
+                "train_time": 3.753533124923706
             },
             {
                 "model_name": "6_Default_RandomForest",
                 "model_type": "Random Forest",
                 "fit_level": "default_algorithms",
-                "train_time": 4.30994176864624
+                "train_time": 5.436182498931885
             },
             {
                 "model_name": "Ensemble",
                 "model_type": "Ensemble",
                 "fit_level": "ensemble",
-                "train_time": 0.1601426601409912
+                "train_time": 0.18070220947265625
             }
         ],
         "is_hill_climbing": false,
@@ -105,7 +105,7 @@
                 "name": "1_Baseline",
                 "status": "trained",
                 "final_loss": 12736.255074884273,
-                "train_time": 0.46115565299987793,
+                "train_time": 1.0615930557250977,
                 "data_type": "original",
                 "max_time_for_learner": 360.0
             },
@@ -157,7 +157,7 @@
                 "name": "2_DecisionTree",
                 "status": "trained",
                 "final_loss": 5017.671212146108,
-                "train_time": 3.9366347789764404,
+                "train_time": 5.0749921798706055,
                 "data_type": "original",
                 "max_time_for_learner": 360.0
             },
@@ -218,7 +218,7 @@
                 "name": "3_Linear",
                 "status": "trained",
                 "final_loss": 6286.192639942853,
-                "train_time": 3.6506192684173584,
+                "train_time": 4.429388761520386,
                 "data_type": "original",
                 "max_time_for_learner": 360.0
             }
@@ -277,7 +277,7 @@
                 "name": "4_Default_Xgboost",
                 "status": "trained",
                 "final_loss": 5105.238655996055,
-                "train_time": 3.8818395137786865,
+                "train_time": 26.045735597610474,
                 "data_type": "original",
                 "max_time_for_learner": 360.0
             },
@@ -340,7 +340,7 @@
                 "name": "5_Default_NeuralNetwork",
                 "status": "trained",
                 "final_loss": 5304.191717697475,
-                "train_time": 2.836699962615967,
+                "train_time": 4.470763444900513,
                 "data_type": "original",
                 "max_time_for_learner": 360.0
             },
@@ -398,7 +398,7 @@
                 "name": "6_Default_RandomForest",
                 "status": "trained",
                 "final_loss": 4906.421264648455,
-                "train_time": 4.743300914764404,
+                "train_time": 5.92469596862793,
                 "data_type": "original",
                 "max_time_for_learner": 360.0
             }
@@ -410,7 +410,7 @@
                 "name": "Ensemble",
                 "status": "trained",
                 "final_loss": 4852.221625035727,
-                "train_time": 0.1601426601409912
+                "train_time": 0.18070220947265625
             }
         ]
     },

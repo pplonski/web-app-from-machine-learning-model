@@ -1,5 +1,5 @@
 {
-    "uid": "4b2b17ca-0e2a-48fc-905c-b70767ba7432",
+    "uid": "24987457-111e-4325-9252-120d61d1ba0c",
     "name": "4_Default_Xgboost",
     "preprocessing": [
         {
@@ -72,7 +72,7 @@
             "library_version": "3.2.0",
             "algorithm_name": "Extreme Gradient Boosting",
             "algorithm_short_name": "Xgboost",
-            "uid": "9ba62c28-78eb-4365-a1f6-86fdbfc30f08",
+            "uid": "2419c4f9-6f57-416f-871c-24a56443216e",
             "params": {
                 "model_type": "Xgboost",
                 "ml_task": "regression",
@@ -153,7 +153,7 @@
     "predictions_fname": "4_Default_Xgboost/predictions_validation.csv",
     "metric_name": "rmse",
     "final_loss": "5105.238655996055",
-    "train_time": 3.542229413986206,
+    "train_time": 25.665027618408203,
     "is_stacked": false,
     "joblib_version": "1.5.3"
 }

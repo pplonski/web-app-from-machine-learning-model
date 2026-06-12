@@ -19,7 +19,7 @@ rmse
 
 ## Training time
 
-3.5 seconds
+4.6 seconds
 
 ### Metric details:
 | Metric   |         Score |

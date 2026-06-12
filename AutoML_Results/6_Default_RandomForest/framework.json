@@ -1,5 +1,5 @@
 {
-    "uid": "e8342a36-1512-4d4b-89aa-5667a44f16e1",
+    "uid": "8f23294e-c7cc-4b37-ae8b-1596f034a936",
     "name": "6_Default_RandomForest",
     "preprocessing": [
         {
@@ -72,7 +72,7 @@
             "library_version": "1.9.0",
             "algorithm_name": "Random Forest",
             "algorithm_short_name": "Random Forest",
-            "uid": "70325e6c-b80f-485b-8b92-25c5ebf69e1f",
+            "uid": "e8d1d032-731d-4491-ac48-e16e5008c152",
             "params": {
                 "model_type": "Random Forest",
                 "ml_task": "regression",
@@ -152,7 +152,7 @@
     "predictions_fname": "6_Default_RandomForest/predictions_validation.csv",
     "metric_name": "rmse",
     "final_loss": "4906.421264648455",
-    "train_time": 4.30994176864624,
+    "train_time": 5.436182498931885,
     "is_stacked": false,
     "joblib_version": "1.5.3"
 }
